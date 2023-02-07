@@ -1,0 +1,55 @@
+.directions-section {
+    background-image: url("https://img.freepik.com/free-photo/old-black-background-grunge-texture-dark-wallpaper-blackboard-chalkboard-room-wall_1258-28313.jpg?w=996&t=st=1675795312~exp=1675795912~hmac=181c226a5000cfe820bdba985bd9296ac5675b13b7cf1cf52a4a8fb4b95f7ec2");
+    text-align: center;
+    padding: 2em;
+    font-family: Arial, sans-serif;
+    color: #fff;
+  }
+  
+  .directions-section h2 {
+    font-size: 2em;
+    margin-bottom: 1em;
+  }
+  
+  .directions-section p {
+    font-size: 1.2em;
+    margin-bottom: 1em;
+  }
+  
+  @media (max-width: 768px) {
+    .directions-section {
+      padding: 1em;
+    }
+    
+    .directions-section h2 {
+      font-size: 1.5em;
+    }
+    
+    .directions-section p {
+      font-size: 1em;
+    }
+  }
+  
+  @media (max-width: 412px) {
+    .directions-section {
+      padding: 0.5em;
+    }
+    
+    .directions-section h2 {
+      font-size: 1.2em;
+    }
+    
+    .directions-section p {
+      font-size: 0.8em;
+    }
+  }
+  
+  @media (max-width: 375px) {
+    .directions-section h2 {
+      font-size: 1em;
+    }
+    
+    .directions-section p {
+      font-size: 0.7em;
+    }
+  }
