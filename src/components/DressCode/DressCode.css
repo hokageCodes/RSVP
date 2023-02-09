@@ -1,0 +1,93 @@
+.dress__code {
+    text-align: center;
+    padding: 50px;
+    cursor: pointer;
+  }
+  .dress__code img {
+    width: 400px;
+    height: 250px;
+    margin-bottom: 50px;
+  }
+  .icon {
+    font-size: 30px;
+    cursor: pointer;
+    margin-right: 10px;
+
+  }
+  .dress__details {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+  }
+  .gentleman, .lady, .accessories {
+    width: 30%;
+    text-align: center;
+  }
+
+  @media (max-width:414px) {
+      h2 {
+        display: flex;
+      }
+      .dress__code {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 370px;
+      }
+      .dress__code>img {
+        max-width: 350px;
+        width: 300px;
+      }
+      .dress__details{
+        margin-top: -50px;
+        margin-left: 30px;
+        width: 700px;
+        display: flex;
+        flex-direction: column;
+      }
+  }
+  @media (max-width:412px) {
+      h2 {
+        display: flex;
+      }
+      .dress__code {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 370px;
+      }
+      .dress__code>img {
+        max-width: 350px;
+        width: 300px;
+      }
+      .dress__details{
+        margin-top: -50px;
+        margin-left: 30px;
+        width: 700px;
+        display: flex;
+        flex-direction: column;
+      }
+  }
+
+  @media (max-width: 375px) {
+    h2 {
+      display: flex;
+    }
+    .dress__code {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 370px;
+    }
+    .dress__code>img {
+      max-width: 350px;
+      width: 300px;
+    }
+    .dress__details{
+      margin-top: -50px;
+      width: 700px;
+      display: flex;
+      flex-direction: column;
+    }
+}

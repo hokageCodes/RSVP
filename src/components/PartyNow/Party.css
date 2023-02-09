@@ -34,26 +34,51 @@
     }
   }
   
-  @media (max-width: 412px) {
+  @media (max-width: 414px) {
     .party-section {
       padding: 0.5em;
+      text-align: left;
     }
     
     .party-section h2 {
       font-size: 1.2em;
+      text-align: left;
     }
     
     .party-section p {
-      font-size: 0.8em;
+      font-size: 1em;
+    }
+  }
+
+  @media (max-width: 412px) {
+    .party-section {
+      padding: 0.5em;
+      text-align: left;
+    }
+    
+    .party-section h2 {
+      font-size: 1.2em;
+      text-align: left;
+    }
+    
+    .party-section p {
+      font-size: 1em;
     }
   }
   
   @media (max-width: 375px) {
+    body {
+      max-width: 370px;
+    }
     .party-section h2 {
       font-size: 1em;
     }
     
     .party-section p {
-      font-size: 0.7em;
+      text-align: left;
+      font-size: 1em;
+    }
+    span {
+      font-size: 20px;
     }
   }

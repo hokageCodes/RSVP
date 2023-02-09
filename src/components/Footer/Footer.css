@@ -1,0 +1,58 @@
+.footer__container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 50px;
+    background-color: #fef7e5;
+    color: #000;
+    height: 220px;
+  }
+  .footer__logo img {
+    width: 80px;
+    height: 60px;
+  }
+  .footer__hashtag {
+    font-size: 20px;
+  }
+  .footer__inquiry {
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .footer__container {
+      margin-top: -40px;
+      flex-direction: column;
+      text-align: center;
+    }
+    .footer__inquiry {
+      margin-top: 20px;
+    }
+    .footer__copyright {
+      margin-top: 20px;
+    }
+  }
+  
+  .footer__logo img {
+    width: 80px;
+    height: 60px;
+  }
+  .footer__hashtag {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .footer__inquiry {
+    text-align: center;
+    padding: 20px;
+  }
+  .footer__inquiry p {
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+  .footer__inquiry a {
+    color: #000;
+    text-decoration: underline;
+  }
+  .footer__copyright {
+    text-align: right;
+    font-style: italic;
+  }
