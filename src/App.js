@@ -6,6 +6,7 @@ import Schedule from "./pages/Schedule";
 import Videos from "./pages/Videos";
 import Leaderboard from "./pages/Leaderboard";
 import Hero from "./components/hero";
+import Swiper from './components/swiper/Swiper'
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <div>
         <Navbar />
         <Hero />
+        <Swiper />
         <Routes>
           <Route path="/" exact component={Home} />
           <Route path="/about" component={About} />

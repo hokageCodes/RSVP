@@ -59,9 +59,6 @@ const Navbar = () => {
                     </NavLink>
                 </li>
             </ul>
-            <div className="navbar__cta">
-                <button className="btn btn--cta">Reserve Spot</button>
-            </div>
             <div className="navbar__icon" onClick={handleToggleNav}>
                 {toggleNav ? <FaTimes /> : <FaBars />}
             </div>

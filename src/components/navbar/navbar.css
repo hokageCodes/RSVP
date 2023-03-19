@@ -8,6 +8,7 @@
     font-size: 18px;
     color: #0d0d0d;
     padding: 0 32px;
+    
     /* box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25); */
 }
 
@@ -48,9 +49,6 @@
     color: #fa4a0c;
 }
 
-.navbar__cta {
-    margin-left: 32px;
-}
 
 .btn {
     display: inline-block;
@@ -63,10 +61,6 @@
     padding: 12px 24px;
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
-}
-
-.btn:hover {
-    background-color: #f53e00;
 }
 
 .navbar__icon {
