@@ -6,7 +6,11 @@ import Schedule from "./pages/Schedule";
 import Videos from "./pages/Videos";
 import Leaderboard from "./pages/Leaderboard";
 import Hero from "./components/hero";
-import MainSwiper from './components/swiper/Swiper'
+import SimpleSlider from "./components/swiper/Carousel";
+import EventInfo from "./components/eventInfo/index";
+import RSVPForm from "./components/RSVP";
+
+
 
 function App() {
   return (
@@ -14,7 +18,9 @@ function App() {
       <div>
         <Navbar />
         <Hero />
-        <MainSwiper />
+        <EventInfo />
+        <SimpleSlider />
+        <RSVPForm />
         <Routes>
           <Route path="/" exact component={Home} />
           <Route path="/about" component={About} />

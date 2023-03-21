@@ -1,0 +1,38 @@
+/* carousel.css */
+.infinite-carousel-slider {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  height: 80vh;
+}
+
+.infinite-carousel-frame {
+  width: 100%;
+}
+
+.infinite-carousel-dots {
+  bottom: 20px;
+}
+
+.infinite-carousel-dots .carousel-dots-outer {
+  display: flex;
+  justify-content: center;
+}
+
+.infinite-carousel-dots .carousel-dots {
+  width: auto;
+  margin: 0 5px;
+}
+
+/* Images */
+.sliding div img {
+  width: 100%;
+  height: 700px;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 768px) {
+  .sliding div img {
+    height: 400px;
+  }
+}
