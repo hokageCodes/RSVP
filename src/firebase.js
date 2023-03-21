@@ -3,14 +3,14 @@ import 'firebase/auth';
 import 'firebase/database';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAeibQxm7BICAIUcoTn_b_crBz9ahk07Es",
-    authDomain: "yomi-emelda.firebaseapp.com",
-    projectId: "yomi-emelda",
-    storageBucket: "yomi-emelda.appspot.com",
-    messagingSenderId: "1025433379110",
-    appId: "1:1025433379110:web:f94e0dc60d94341ee921e7",
-    measurementId: "G-PESRBJR1NZ"
-};
+    apiKey: "AIzaSyDn-Y2saWi9vClRlNbK7nvaZm1POl77Ef4",
+    authDomain: "rsvp-3ffd8.firebaseapp.com",
+    projectId: "rsvp-3ffd8",
+    storageBucket: "rsvp-3ffd8.appspot.com",
+    messagingSenderId: "83001791323",
+    appId: "1:83001791323:web:ba6d49714bffb5de1c007e",
+    measurementId: "G-FL04ERLS0T"
+  };
 
 firebase.initializeApp(config);
 
