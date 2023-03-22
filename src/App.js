@@ -8,7 +8,7 @@ import Leaderboard from "./pages/Leaderboard";
 import Hero from "./components/hero";
 import SimpleSlider from "./components/swiper/Carousel";
 import EventInfo from "./components/eventInfo/index";
-import RSVPForm from "./components/RSVP";
+import RsvpForm from "./components/RSVP";
 
 
 
@@ -21,7 +21,7 @@ function App() {
         <Hero />
         <EventInfo />
         <SimpleSlider />
-        <RSVPForm />
+        <RsvpForm />
         <Routes>
           <Route path="/" exact component={Home} />
           <Route path="/about" component={About} />
