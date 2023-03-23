@@ -9,8 +9,6 @@ import Hero from "./components/hero";
 import SimpleSlider from "./components/swiper/Carousel";
 import EventInfo from "./components/eventInfo/index";
 import RsvpForm from "./components/RSVP";
-import ResponseCounts from "./components/response";
-import RSVPCount from "./components/response";
 
 
 
@@ -24,7 +22,6 @@ function App() {
         <EventInfo />
         <SimpleSlider />
         <RsvpForm />
-        <RSVPCount />
         <Routes>
           <Route path="/" exact component={Home} />
           <Route path="/about" component={About} />

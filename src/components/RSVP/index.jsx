@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app';
 import 'firebase/compat/database';
 import { useState } from 'react';
 import './rsvp.css'
+import RSVPCount from '../response';
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -83,6 +84,7 @@ function RSVPForm() {
       <textarea id="additional-info" name="additional-info" value={additionalInfo} onChange={(e) => setAdditionalInfo(e.target.value)}></textarea>
 
       <button type="submit">Submit</button>
+      <RSVPCount />
     </form>
   );
 }
