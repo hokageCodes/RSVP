@@ -24,13 +24,11 @@ function RSVPCount() {
   }, []);
 
   return (
-
-    <div className="rsvp-counter">
-      <p>{yesCount} {yesCount === 1 ? 'person' : 'people'} will be attending</p>
-      <p>{noCount} {noCount === 1 ? 'person' : 'people'} will not be attending</p>
+    <div className="rsvp-count">
+      <p>{yesCount} people will be attending</p>
+      <p>{noCount} people will not be attending</p>
     </div>
   );
 }
 
 export default RSVPCount;
-
