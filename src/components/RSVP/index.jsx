@@ -1,9 +1,7 @@
 import firebase from 'firebase/compat/app';
-import { initializeApp } from 'firebase/app';
 import 'firebase/compat/database';
 import { useState } from 'react';
 import './rsvp.css'
-import RSVPCount from '../response';
 
 // Initialize Firebase
 const firebaseConfig = {
@@ -53,13 +51,13 @@ function RSVPForm() {
         setErrorMessage('Error submitting RSVP: ' + error.message);
       });
   };
-  const formatCountText = (count) => {
-    if (count === 1) {
-      return `${count} person`;
-    } else {
-      return `${count} people`;
-    }
-  };
+  // const formatCountText = (count) => {
+  //   if (count === 1) {
+  //     return `${count} person`;
+  //   } else {
+  //     return `${count} people`;
+  //   }
+  // };
 
   return (
     <form className="rsvp-form" onSubmit={handleSubmit}>
@@ -84,7 +82,8 @@ function RSVPForm() {
       <textarea id="additional-info" name="additional-info" value={additionalInfo} onChange={(e) => setAdditionalInfo(e.target.value)}></textarea>
 
       <button type="submit">Submit</button>
-      <RSVPCount />
+      <div className="count">
+      </div>
     </form>
   );
 }
