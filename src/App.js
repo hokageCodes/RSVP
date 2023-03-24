@@ -4,15 +4,16 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Schedule from "./pages/Schedule";
 import Videos from "./pages/Videos";
-// import Leaderboard from "./pages/Leaderboard";
 import Hero from "./components/hero";
 import SimpleSlider from "./components/swiper/Carousel";
 import EventInfo from "./components/eventInfo/index";
 import RsvpForm from "./components/RSVP";
 import RSVPCount from "./components/response";
 import GamesSection from "./components/funandgames";
-import Quiz from "./components/quiz";
-// import Leaderboard from "./components/leaderboard";
+import FileUpload from "./components/uploadVideo";
+import UploadForm from "./components/uploadVideo";
+// import Quiz from "./components/quiz";
+
 
 
 
@@ -28,7 +29,9 @@ function App() {
         <RsvpForm />
         <RSVPCount />
         <GamesSection />
-        <Quiz />
+        <UploadForm />
+        {/* <Quiz /> */}
+      
         {/* <Leaderboard /> */}
         <Routes>
           <Route path="/" exact component={Home} />
