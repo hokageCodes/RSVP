@@ -2,69 +2,108 @@ import React, { useState } from 'react';
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/storage';
 
-import { Button, Progress } from 'semantic-ui-react';
+import './uploadform.css';
 
-function UploadForm() {
+function UploadForm({ onUploadComplete }) {
   const [name, setName] = useState('');
   const [video, setVideo] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [uploadedVideos, setUploadedVideos] = useState([]);
 
-  const storage = firebase.storage();
+  const storageRef = firebase.storage().ref();
 
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
+  function ProgressBar({ progress }) {
+  return (
+    <div className="progress-bar">
+      <div className="progress-bar__fill" style={{ width: `${progress}%` }} />
+    </div>
+  );
+}
+
 
   const handleVideoChange = (event) => {
     setVideo(event.target.files[0]);
   };
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
+    if (!name || !video) {
+      return;
+    }
+    
     setUploading(true);
-    const uploadTask = storage.ref(`videos/${video.name}`).put(video);
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(progress);
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        storage
-          .ref('videos')
-          .child(video.name)
-          .getDownloadURL()
-          .then((url) => {
-            console.log(url);
-            setUploading(false);
-          });
-      }
-    );
+    const videoRef = storageRef.child(`videos/${video.name}`);
+    const uploadTask = videoRef.put(video);
+  
+    uploadTask.on('state_changed', (snapshot) => {
+      const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      setProgress(progress);
+    }, (error) => {
+      console.log(error);
+    }, () => {
+      uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+        const newVideo = {
+          name,
+          url: downloadURL,
+          timestamp: new Date(),
+        };
+        setUploadedVideos([...uploadedVideos, newVideo]);
+        setProgress(0);
+        setVideo(null);
+        setName('');
+        setUploading(false);
+        onUploadComplete();
+      });
+    });
   };
-
+  
   return (
-    <div>
+    <div className="upload-form">
       <h3>Upload a 60 second video:</h3>
-      <div>
-        <label>
-          Your Name:
-          <input type="text" value={name} onChange={handleNameChange} required />
-        </label>
-      </div>
-      <div>
-        <input type="file" accept="video/*" onChange={handleVideoChange} required />
-      </div>
-      {uploading && <Progress percent={progress} indicating />}
-      <Button primary onClick={handleUpload} disabled={!name || !video || uploading}>
-        Upload
-      </Button>
-    </div>
-  );
+      <div className="upload-form__input-container">
+        <div className="upload-form__input-wrapper">
+          <input
+            type="text"
+            value={name}
+            onChange={handleNameChange}
+            placeholder="Enter your name"
+            required
+          />
+          <label className="upload-form__label">Your Name:</label>
+        </div>
+        <div className="upload-form__input-wrapper">
+          <input
+            type="file"
+            accept="video/*"
+            onChange={handleVideoChange}
+            required
+          />
+          <label className="upload-form__label">Upload a video:</label>
+        </div>
+        {uploading && (
+          <div className="upload-form__progress-container">
+            <div
+              className="upload-form__progress-bar"
+              style={{ width: `${progress}%` }}
+            ></div>
+            <span>{`${progress}%`}</span>
+            {uploading && <ProgressBar progress={progress} />}
+
+          </div>
+        )}
+        <button
+          className="upload-form__submit-button"
+          disabled={!name || !video || uploading}
+          onClick={handleUpload}
+        >
+          {uploading ? "Uploading..." :"Upload Video"}
+</button>
+</div>
+</div>
+);
 }
 
 export default UploadForm;
