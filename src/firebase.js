@@ -6,13 +6,12 @@ import firebase from 'firebase/compat/app';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAWnNCLZg8ObNGN8d0WLGZR7eLObcNnc4g",
-  authDomain: "rsvp-17c7b.firebaseapp.com",
-  databaseURL: "https://rsvp-17c7b-default-rtdb.firebaseio.com",
-  projectId: "rsvp-17c7b",
-  storageBucket: "rsvp-17c7b.appspot.com",
-  messagingSenderId: "287348157655",
-  appId: "1:287348157655:web:4af470413717f656189492"
+  apiKey: "AIzaSyBoYadoKZiFojir3gg_rnevgST_Ma05Qag",
+  authDomain: "rsvp-a1dd7.firebaseapp.com",
+  projectId: "rsvp-a1dd7",
+  storageBucket: "rsvp-a1dd7.appspot.com",
+  messagingSenderId: "1026211500185",
+  appId: "1:1026211500185:web:998b7bedaf0a6993712808"
 };
 
 // Initialize Firebase
