@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/database';
-
-const database = firebase.database();
+import { database } from '../../firebase'
 
 function RSVPCount() {
   const [yesCount, setYesCount] = useState(0);

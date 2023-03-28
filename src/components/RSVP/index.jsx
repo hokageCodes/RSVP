@@ -1,20 +1,8 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/database';
+// import firebase from 'firebase/compat/app';
+import { database } from '../../firebase'
 import { useState } from 'react';
 import './rsvp.css'
 
-// Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyAWnNCLZg8ObNGN8d0WLGZR7eLObcNnc4g",
-  authDomain: "rsvp-17c7b.firebaseapp.com",
-  projectId: "rsvp-17c7b",
-  storageBucket: "rsvp-17c7b.appspot.com",
-  messagingSenderId: "287348157655",
-  appId: "1:287348157655:web:4af470413717f656189492"
-};
-
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
 
 function RSVPForm() {
   const [name, setName] = useState('');
