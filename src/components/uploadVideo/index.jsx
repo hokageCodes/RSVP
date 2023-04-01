@@ -1,85 +1,78 @@
-import { useEffect, useState } from 'react';
-import { database, storage } from '../../firebase'
+import React, { useState } from "react";
+import "./uploadform.css";
 import firebase from "firebase/compat/app";
 
-function App() {
+function UploadForm() {
   const [name, setName] = useState("");
   const [videoFile, setVideoFile] = useState(null);
-  const [videoUrl, setVideoUrl] = useState("");
   const [uploadProgress, setUploadProgress] = useState(null);
   const [uploadError, setUploadError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [videoUrl, setVideoUrl] = useState(null);
   const [videos, setVideos] = useState([]);
 
-  useEffect(() => {
-    const videosRef = database.ref("videos");
-    videosRef.on("value", (snapshot) => {
-      const videosData = snapshot.val();
-      if (videosData) {
-        const videosArray = Object.entries(videosData).map(([id, data]) => ({
-          id,
-          name: data.name,
-          videoUrl: data.videoUrl,
-          likes: data.likes || 0,
-          userId: data.userId,
-        }));
-        setVideos(videosArray);
-      } else {
-        setVideos([]);
-      }
-    });
-  }, []);
-
+  const handleUpload = async (event) => {
+    event.preventDefault();
+    setUploadProgress(0);
+    setUploadError(null);
+    setSuccessMessage(null);
+  
+    try {
+      const storageRef = firebase.storage().ref();
+      const videoRef = storageRef.child(videoFile.name);
+  
+      const uploadTask = videoRef.put(videoFile);
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setUploadProgress(progress);
+        },
+        (error) => {
+          throw error;
+        },
+        async () => {
+          const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
+          setSuccessMessage("Video uploaded successfully!");
+          setVideos((prevVideos) => [          ...prevVideos,          {            name: name,            liked: false,            likes: 0,            url: downloadURL,          },        ]);
+          setVideoFile(null);
+          setName("");
+        }
+      );
+    } catch (error) {
+      setUploadError(error.message);
+    } finally {
+      setUploadProgress(null);
+    }
+  };
+  
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
 
   const handleFileChange = (event) => {
     setVideoFile(event.target.files[0]);
-    setVideoUrl("");
+    setVideoUrl(URL.createObjectURL(event.target.files[0]));
   };
 
-  const handleUpload = (event) => {
-    event.preventDefault();
-    setUploadProgress(0);
-    setUploadError(null);
-
-    const uploadTask = storage.ref(`videos/${videoFile.name}`).put(videoFile);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setUploadProgress(progress);
-      },
-      (error) => {
-        console.log(error);
-        setUploadError("Error uploading video");
-      },
-      () => {
-        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-          console.log("File available at", downloadURL);
-          setVideoUrl(downloadURL);
-          const videosRef = database.ref("videos");
-          const newVideoRef = videosRef.push();
-          newVideoRef.set({
-            name,
-            videoUrl: downloadURL,
-            userId: firebase.auth().currentUser.uid,
-          });
-          setSuccessMessage("Video uploaded successfully");
-        });
-      }
+  const handleLike = (index) => {
+    setVideos((prevVideos) =>
+      prevVideos.map((video, i) => {
+        if (i === index) {
+          return {
+            ...video,
+            liked: !video.liked,
+            likes: video.likes + (video.liked ? -1 : 1),
+          };
+        }
+        return video;
+      })
     );
-  };
-  const handleLike = (id, likes) => {
-    database.ref(`videos/${id}`).update({
-      likes: likes + 1,
-    });
   };
 
   return (
-    <div>
+    <div className="upload-form">
       <form onSubmit={handleUpload} noValidate>
         <input
           type="text"
@@ -100,26 +93,36 @@ function App() {
         </button>
       </form>
       {uploadProgress !== null && (
-        <div>Uploading... {Math.round(uploadProgress)}%</div>
+        <div className="upload-progress">Uploading... {Math.round(uploadProgress)}%</div>
       )}
-      {uploadError && <div>Error: {uploadError}</div>}
-      {successMessage && <div>{successMessage}</div>}
+      {uploadError && <div className="upload-error">Error: {uploadError}</div>}
+      {successMessage && <div className="success-message">{successMessage}</div>}
       {videoUrl && (
-        <video src={videoUrl} controls width="500">
-          Your browser does not support the video tag.
-        </video>
-      )}
-      {videos.map((video) => (
-        <div key={video.id}>
-          <h2>{video.name}</h2>
-          <video src={video.videoUrl} controls width="500">
-            Your browser does not support the video tag.
-          </video>
-          <button onClick={() => handleLike(video.id, video.likes)}>Like ({video.likes})</button>
+        <div className="video-preview">
+          <video src={videoUrl} controls />
         </div>
-      ))}
+      )}
+      {videos.length > 0 && (
+        <div className="uploaded-videos">
+          <h2>Uploaded Videos</h2>
+          <div className="video-grid">
+            {videos.map((video, index) => (
+              <div className="video-card" key={index}>
+                <video src={video.url} controls />
+                <div className="video-details">
+                  <p className="video-name">{video.name}</p>
+                  <button className="like-button" onClick={() => handleLike(index)}>
+                    {video.liked ? "Unlike" : "Like"}
+                  </button>
+                  <p className="likes-count">Likes: {video.likes}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-export default App;
+export default UploadForm;
