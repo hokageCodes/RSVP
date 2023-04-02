@@ -5,6 +5,9 @@ import './uploadform.css'
 
 const UploadForm = () => {
   const [video, setVideo] = useState(null);
+  const [name, setName] = useState('');
+  const [relationship, setRelationship] = useState('');
+  const [location, setLocation] = useState('');
   const [error, setError] = useState(null);
   const [uploading, setUploading] = useState(false);
 
@@ -56,7 +59,25 @@ const UploadForm = () => {
         {uploading && <div className="loading">Uploading...</div>}
         {video && <div>{video.name}</div>}
       </div>
+      <label>
+        <span>Name:</span>
+        <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
+      </label>
+      <label>
+        <span>Relationship to celebrant:</span>
+        <select value={relationship} onChange={(e) => setRelationship(e.target.value)}>
+          <option value="">Select one</option>
+          <option value="Family">Family</option>
+          <option value="Friend">Friend</option>
+          <option value="Colleague">Colleague</option>
+        </select>
+      </label>
+      <label>
+        <span>Location:</span>
+        <input type="text" value={location} onChange={(e) => setLocation(e.target.value)} />
+      </label>
       <button disabled={!video}>Upload</button>
+      <p>Instructions: Please record a video message to congratulate the celebrant on their special occasion. The recommended video length is between 30 seconds to 2 minutes. Please ensure the video is in mp4, mov, or avi format and the content is appropriate for all ages.</p>
     </form>
   );
 };
