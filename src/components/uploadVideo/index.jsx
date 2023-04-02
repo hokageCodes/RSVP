@@ -1,74 +1,77 @@
 import React, { useState } from "react";
-import "./uploadform.css";
 import firebase from "firebase/compat/app";
+import "firebase/compat/storage";
+import PropTypes from "prop-types";
 
-function UploadForm() {
+const UploadForm = ({ storageLocation }) => {
   const [name, setName] = useState("");
-  const [videoFile, setVideoFile] = useState(null);
-  const [uploadProgress, setUploadProgress] = useState(null);
-  const [uploadError, setUploadError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
-  const [videoUrl, setVideoUrl] = useState(null);
-  const [videos, setVideos] = useState([]);
+  const [file, setFile] = useState(null);
+  const [error, setError] = useState(null);
+  const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
 
-  const handleUpload = async (event) => {
-    event.preventDefault();
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+    const fileTypes = ["video/mp4", "video/mov", "video/avi"];
+    const fileSizeLimit = 100 * 1024 * 1024; // 100MB
+
+    if (selectedFile && fileTypes.includes(selectedFile.type) && selectedFile.size < fileSizeLimit) {
+      setFile(selectedFile);
+      setError(null);
+    } else {
+      setFile(null);
+      setError("Please select a video file (mp4, mov, avi) less than 100MB.");
+    }
+  };
+
+  const handleUpload = async (e) => {
+    e.preventDefault();
+    setUploading(true);
+    setError(null);
     setUploadProgress(0);
-    setUploadError(null);
-    setSuccessMessage(null);
-  
+
+    const storageRef = firebase.storage().ref();
+    const videoRef = storageRef.child(`${storageLocation}/${file.name}`);
+
     try {
-      const storageRef = firebase.storage().ref();
-      const videoRef = storageRef.child(videoFile.name);
-  
-      const uploadTask = videoRef.put(videoFile);
+      const uploadTask = videoRef.put(file);
+
       uploadTask.on(
         "state_changed",
         (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          const progress = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
           setUploadProgress(progress);
         },
         (error) => {
-          throw error;
+          setError(error.message);
+          setUploading(false);
         },
         async () => {
           const downloadURL = await uploadTask.snapshot.ref.getDownloadURL();
-          setSuccessMessage("Video uploaded successfully!");
-          setVideos((prevVideos) => [          ...prevVideos,          {            name: name,            liked: false,            likes: 0,            url: downloadURL,          },        ]);
-          setVideoFile(null);
+          console.log("File available at", downloadURL);
           setName("");
+          setFile(null);
+          setUploading(false);
+          setUploadProgress(0);
         }
       );
     } catch (error) {
-      setUploadError(error.message);
-    } finally {
-      setUploadProgress(null);
+      setError(error.message);
+      setUploading(false);
+      setUploadProgress(0);
     }
   };
-  
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
 
-  const handleFileChange = (event) => {
-    setVideoFile(event.target.files[0]);
-    setVideoUrl(URL.createObjectURL(event.target.files[0]));
-  };
-
-  const handleLike = (index) => {
-    setVideos((prevVideos) =>
-      prevVideos.map((video, i) => {
-        if (i === index) {
-          return {
-            ...video,
-            liked: !video.liked,
-            likes: video.likes + (video.liked ? -1 : 1),
-          };
-        }
-        return video;
-      })
-    );
+  const handleCancel = () => {
+    setName("");
+    setFile(null);
+    setError(null);
+    setUploading(false);
+    setUploadProgress(0);
   };
 
   return (
@@ -82,47 +85,23 @@ function UploadForm() {
           required
           onChange={handleNameChange}
         />
-        <input
-          type="file"
-          accept="video/*"
-          required
-          onChange={handleFileChange}
-        />
-        <button type="submit" disabled={!videoFile}>
-          Upload
+        <input type="file" accept="video/*" required onChange={handleFileChange} />
+        <button type="submit" disabled={!file || !name || uploading}>
+          {uploading ? `Uploading...${uploadProgress}%` : "Upload"}
         </button>
+        {uploading && (
+          <button type="button" onClick={handleCancel}>
+            Cancel
+          </button>
+        )}
       </form>
-      {uploadProgress !== null && (
-        <div className="upload-progress">Uploading... {Math.round(uploadProgress)}%</div>
-      )}
-      {uploadError && <div className="upload-error">Error: {uploadError}</div>}
-      {successMessage && <div className="success-message">{successMessage}</div>}
-      {videoUrl && (
-        <div className="video-preview">
-          <video src={videoUrl} controls />
-        </div>
-      )}
-      {videos.length > 0 && (
-        <div className="uploaded-videos">
-          <h2>Uploaded Videos</h2>
-          <div className="video-grid">
-            {videos.map((video, index) => (
-              <div className="video-card" key={index}>
-                <video src={video.url} controls />
-                <div className="video-details">
-                  <p className="video-name">{video.name}</p>
-                  <button className="like-button" onClick={() => handleLike(index)}>
-                    {video.liked ? "Unlike" : "Like"}
-                  </button>
-                  <p className="likes-count">Likes: {video.likes}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {error && <p>{error}</p>}
     </div>
   );
-}
+};
+
+UploadForm.propTypes = {
+  storageLocation: PropTypes.string.isRequired,
+};
 
 export default UploadForm;
