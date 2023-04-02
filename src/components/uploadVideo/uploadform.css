@@ -1,144 +1,111 @@
-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 2rem auto;
-  width: 80%;
-  max-width: 600px;
-  padding: 2rem;
-  background-color: #fff;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+/* Upload form styles */
+.upload-form {
+  background-color: #f5f5f5;
+  padding: 30px;
+  margin: 30px auto;
+  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-label {
-  margin: 1rem 0;
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #333;
-  text-align: center;
+.upload-form h2 {
+  margin-bottom: 20px;
+  font-size: 2rem;
 }
 
-label input[type="file"] {
-  display: none;
+.form-control {
+  margin-bottom: 20px;
 }
 
-label span {
+.form-control label {
   display: block;
-  margin: 0.5rem 0;
-  font-size: 1rem;
-  color: #777;
-  text-align: center;
-}
-
-.output {
-  margin-top: 1rem;
+  margin-bottom: 5px;
   font-size: 1.2rem;
-  text-align: center;
 }
 
-.error {
-  color: red;
-}
-
-.loading {
-  color: #0077ff;
-  font-weight: bold;
-}
-
-input[type="text"],
-select {
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 0.5rem;
-  font-size: 1rem;
-}
-
-select {
-  appearance: none;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23777' %3E%3Cpath d='M5 7l5 5 5-5z'/%3E%3C/svg%3E") no-repeat right 0.75rem center/8px 10px;
-  padding-right: 2.5rem;
+.form-control input[type="text"],
+.form-control select {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
   background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  color: #333;
+}
+
+.form-control input[type="text"]:focus,
+.form-control select:focus {
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.form-control select {
+  appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  appearance: none;
-  border-radius: 0.5rem;
-  font-size: 1rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23333' d='M7.4 10.6l4.6 4.6c.4.4 1 .4 1.4 0l4.6-4.6c.4-.4.4-1 0-1.4s-1-.4-1.4 0L12 12.2l-3.2-3.2c-.4-.4-1-.4-1.4 0s-.4 1 0 1.4zM4 16v2h16v-2H4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
 }
 
-.radio-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
-}
-
-.radio-group label {
-  margin: 0.5rem 0;
-}
-
-.radio-group input[type="radio"] {
+.form-control select::-ms-expand {
   display: none;
 }
 
-.radio-group input[type="radio"] + label::before {
-  content: '';
-  display: inline-block;
-  vertical-align: middle;
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-right: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  background-color: #fff;
-}
-
-.radio-group input[type="radio"]:checked + label::before {
-  background-color: #0077ff;
-}
-
-.instructions {
-  margin-top: 2rem;
+.error-message {
+  color: #f00;
+  margin-bottom: 10px;
   font-size: 1.2rem;
+}
+
+.upload-progress {
+  margin-bottom: 20px;
+  font-size: 1.2rem;
+}
+
+.upload-progress-bar {
+  width: 100%;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #eee;
+  overflow: hidden;
+  position: relative;
+}
+
+.upload-progress-bar::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #4caf50;
+  transition: width 0.3s ease-in-out;
+}
+
+.upload-progress-bar span {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   text-align: center;
-}
-
-.instructions h2 {
-  font-size: 1.5rem;
+  line-height: 20px;
+  font-size: 0.8rem;
   font-weight: bold;
-  color: #333;
-  margin-bottom: 1rem;
-}
-
-.instructions ul {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-.instructions li {
-  margin-bottom: 0.5rem;
-}
-button {
-  margin-top: 2rem;
-  padding: 1rem 2rem;
-  background-color: #0077ff;
   color: #fff;
-  border: none;
-  border-radius: 0.5rem;
-  font-size: 1.2rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
 }
 
-button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.video-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
 }
 
-button:hover {
-  background-color: #0059b3;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+video {
+  width: 100%;
+  height: auto;
 }

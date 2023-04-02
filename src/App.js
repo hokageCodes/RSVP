@@ -3,6 +3,7 @@ import Navbar from "./components/navbar";
 import UploadForm from "./components/uploadVideo";
 import LandingPage from "./pages/LandingPage";
 import QuizPage from "./pages/QuizPage";
+import VideoItem from "./components/uploadVideo/Gallery";
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/uploadvideo" element={<UploadForm />} />
         <Route path="/takequiz" element={<QuizPage />} />
+        <Route path="/videos" element={<VideoItem />} />
       </Routes>
     </Router>
   );
