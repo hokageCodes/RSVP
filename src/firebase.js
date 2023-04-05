@@ -8,14 +8,13 @@ import "firebase/compat/database";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyBoYadoKZiFojir3gg_rnevgST_Ma05Qag",
-  authDomain: "rsvp-a1dd7.firebaseapp.com",
-  projectId: "rsvp-a1dd7",
-  storageBucket: "rsvp-a1dd7.appspot.com",
-  messagingSenderId: "1026211500185",
-  appId: "1:1026211500185:web:998b7bedaf0a6993712808"
+  apiKey: "AIzaSyBD9Bby4jqx0JQduR3sQ_ydZWhfTjiaGjo",
+  authDomain: "rsvp-a35d9.firebaseapp.com",
+  projectId: "rsvp-a35d9",
+  storageBucket: "rsvp-a35d9.appspot.com",
+  messagingSenderId: "74573557074",
+  appId: "1:74573557074:web:210c6efea0eafa714a9e8b"
 };
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 

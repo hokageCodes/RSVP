@@ -1,148 +1,120 @@
-import React, { useState } from "react";
-import firebase from "firebase/compat/app";
-import "firebase/compat/storage";
-import VideoItem from "./Gallery";
-import "./uploadform.css";
+import { useState } from 'react';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/storage';
+import 'firebase/compat/firestore';
 
 const UploadForm = () => {
-  const [videos, setVideos] = useState([]);
-  const [video, setVideo] = useState(null);
-  const [name, setName] = useState("");
-  const [relationship, setRelationship] = useState("");
-  const [location, setLocation] = useState("");
-  const [error, setError] = useState(null);
-  const [uploading, setUploading] = useState(false);
-  const [progress, setProgress] = useState(0);
+  const [name, setName] = useState('');
+  const [videoFile, setVideoFile] = useState(null);
+  const [uploadProgress, setUploadProgress] = useState(0);
+  const [uploadError, setUploadError] = useState(null);
+  const [successMessage, setSuccessMessage] = useState(null);
 
-  const handleChange = (e) => {
-    const selected = e.target.files[0];
-    if (selected && selected.type.includes("video")) {
-      setVideo(selected);
-      setError(null);
-    } else {
-      setVideo(null);
-      setError("Please select a video file (mp4, mov, or avi)");
+  const handleNameChange = (e) => {
+    setName(e.target.value);
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setVideoFile(file);
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleUpload = async (e) => {
     e.preventDefault();
-    if (!video) {
-      setError("Please select a video file");
-      return;
-    }
-    if (!name) {
-      setError("Please enter your name");
-      return;
-    }
-    if (!relationship) {
-      setError("Please select your relationship to the celebrant");
-      return;
-    }
-    if (!location) {
-      setError("Please enter your location");
-      return;
-    }
+    setUploadProgress(0);
 
-    setUploading(true);
-    setError(null);
-
-    const storageRef = firebase.storage().ref(`videos/${video.name}`);
-    const uploadTask = storageRef.put(video);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(progress);
-      },
-      (error) => {
-        console.log(error);
-        setError("Sorry, there was an error uploading your video.");
-      },
-      () => {
-        storageRef.getDownloadURL().then((url) => {
-          const newVideo = {
-            name,
-            relationship,
-            location,
-            url,
-          };
-          setVideos((prevVideos) => [...prevVideos, newVideo]);
-          setVideo(null);
-          setName("");
-          setRelationship("");
-          setLocation("");
-          setProgress(0);
-          setUploading(false);
-        });
+    try {
+      if (!videoFile) {
+        setUploadError('Please select a video to upload');
+        return;
       }
-    );
+
+      const storageRef = firebase.storage().ref();
+      const videoRef = storageRef.child(videoFile.name);
+      const uploadTask = videoRef.put(videoFile);
+
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          setUploadProgress(progress);
+        },
+        (error) => {
+          setUploadError(error.message);
+        },
+        async () => {
+          const downloadUrl = await videoRef.getDownloadURL();
+          setSuccessMessage('Video uploaded successfully!');
+
+          const firestore = firebase.firestore();
+          await firestore.collection('videos').add({
+            name,
+            url: downloadUrl,
+            likes: 0,
+          });
+
+          setName('');
+          setVideoFile(null);
+        }
+      );
+    } catch (error) {
+      setUploadError(error.message);
+    }
   };
 
   return (
     <div className="upload-form">
-      <h2>Upload Video Greetings</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-control">
-          <label htmlFor="name">Your Name:</label>
-          <input
-            type="text"
-            id="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-        </div>
-        <div className="form-control">
-          <label htmlFor="relationship">
-            Your Relationship to the Celebrant:
+      <h1 className="upload-form__title">Video Uploader</h1>
+      <form onSubmit={handleUpload} noValidate>
+        <div className="upload-form__field">
+          <label className="upload-form__label" htmlFor="name">
+            Name:
           </label>
-          <select
-            id="relationship"
-            value={relationship}
-            onChange={(e) => setRelationship(e.target.value)}
-          >
-            <option value="">--Please choose an option--</option>
-            <option value="family">Family</option>
-            <option value="friend">Friend</option>
-            <option value="colleague">Colleague</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div className="form-control">
-          <label htmlFor="location">Your Location:</label>
           <input
+            id="name"
             type="text"
-            id="location"
-            value={location}
-            onChange={(e) => setLocation(e.target.value)}
+            placeholder="Enter video name"
+            value={name}
+            maxLength="50"
+            required
+            onChange={handleNameChange}
+            className="upload-form__input"
           />
-          </div>
-          <div className="form-control">
-          <label htmlFor="video">Upload a Video Greeting:</label>
-          <input type="file" id="video" onChange={handleChange} />
-          {error && <div className="error">{error}</div>}
-          </div>
-          <button disabled={uploading} className="btn">
-          {uploading ? "Uploading..." : "Upload"}
-          </button>
-          {progress > 0 && <progress value={progress} max="100" />}
-          </form>
-          {/* <div className="video-list">
-          <h3>Video Greetings Received:</h3>
-          {videos.map((video) => (
-          <VideoItem key={video.id} video={video} />
-          ))}
-          </div> */}
-          </div>
-          );
-          };
+        </div>
+        <div className="upload-form__field">
+          <label className="upload-form__label" htmlFor="video">
+            Video:
+          </label>
+          <input
+            id="video"
+            type="file"
+            accept="video/*"
+            required
+            onChange={handleFileChange}
+            className="upload-form__input"
+          />
+        </div>
+        <button
+          type="submit"
+          disabled={!videoFile}
+          className="upload-form__button"
+        >
+          Upload
+        </button>
+      </form>
+      {uploadProgress > 0 && (
+        <div className="upload-form__progress">
+          Uploading... {Math.round(uploadProgress)}%
+        </div>
+      )}
+      {uploadError && <div className="upload-form__error">{uploadError}</div>}
+      {successMessage && (
+        <div className="upload-form__success">{successMessage}</div>
+      )}
+    </div>
+  );
+};
 
 export default UploadForm;
-
-
-
-
-
