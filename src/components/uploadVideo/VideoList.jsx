@@ -3,7 +3,7 @@ import firebase from 'firebase/compat/app';
 import 'firebase/compat/firestore';
 import './uploadform.css'
 
-const PAGE_SIZE = 4;
+const PAGE_SIZE = 10;
 
 const VideoList = () => {
   const [videos, setVideos] = useState([]);
@@ -92,36 +92,36 @@ const VideoList = () => {
             <div key={video.id} className="video-list__item">
             <video src={video.url} controls className="video-list__video"></video>
             <div className="video-list__details">
-              <h2 className="video-list__name">{video.name}</h2>
-              <button onClick={() => handleLikeClick(video.id)} className="video-list__like">
-                {video.likes} Likes
-              </button>
-            </div>
-          </div>
-          ))}
-          <div className="video-list__pagination">
-            <button
-              onClick={handlePrevPageClick}
-              disabled={currentPage === 1}
-              className="video-list__pagination-btn"
-            >
-              Prev
-            </button>
-            <span className="video-list__pagination-info">
-              Page {currentPage} of {totalPages}
-            </span>
-            <button
-              onClick={handleNextPageClick}
-              disabled={currentPage === totalPages}
-              className="video-list__pagination-btn"
-            >
-              Next
-            </button>
-          </div>
-          </>
-          )}
-          </div>
-          );
-          };
-          
-export default VideoList
+              <h2 className          ="video-list__name">{video.name}</h2>
+          <button onClick={() => handleLikeClick(video.id)} className="video-list__like">
+            {video.likes} Likes
+          </button>
+        </div>
+      </div>
+      ))}
+      <div className="video-list__pagination">
+        <button
+          onClick={handlePrevPageClick}
+          disabled={currentPage === 1}
+          className="video-list__pagination-btn"
+        >
+          Prev
+        </button>
+        <span className="video-list__pagination-info">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          onClick={handleNextPageClick}
+          disabled={currentPage === totalPages}
+          className="video-list__pagination-btn"
+        >
+          Next
+        </button>
+      </div>
+    </>
+  )}
+</div>
+);
+};
+
+export default VideoList;
