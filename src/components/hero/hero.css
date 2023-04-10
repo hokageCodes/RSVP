@@ -1,102 +1,116 @@
 .hero {
-    background: url("https://media.istockphoto.com/id/1250275937/photo/birthday-cupcake-with-balloons.jpg?b=1&s=170667a&w=0&k=20&c=8MwKGBjtO11sx4MKBaz3fErxPIyqw7Dsmv0EJFKIKmc=") no-repeat center center fixed;
-    background-size: cover;
-    height: 90vh;
-    position: relative;
-    margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+  width: 100%;
+  background-color: #ffffff;
+  background-image: url(../../images/hero-bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
   }
   
-  .hero__content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: #0d0d0d;
+  .hero-content {
+  text-align: center;
+  max-width: 800px;
+  padding: 2rem;
   }
   
-  .hero__title {
-    font-size: 4rem;
-    margin-bottom: 2rem;
-    margin-top: -50px;
-  }
-  .hero__description {
-    font-size: 1.5rem;
-    margin-bottom: 50px;
-  }
-  .hero__subtitle {
-    font-size: 2rem;
-    margin-bottom: 2rem;
+  .hero-title {
+  font-family: 'Luckiest Guy', cursive;
+  font-size: 4rem;
+  color: #FF6B6B;
+  margin-bottom: 1rem;
   }
   
-  .btn {
-    margin-top: 30px;
-    font-size: 1.6rem;
-    padding: 1.5rem 3rem;
-    border: none;
-    background-color: #0d0d0d;
-    color: #fff;
-    cursor: pointer;
+  .hero-description {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.5rem;
+  color: #333333;
+  margin-bottom: 2rem;
   }
   
+  .cta-button {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  background-color: #58B19F;
+  color: #ffffff;
+  transition: background-color 0.2s ease-in-out;
+  }
   
-  @media only screen and (max-width: 768px) {
-    .hero__title {
-      font-size: 4rem;
-      width: 750px;
+  .cta-button:hover {
+  background-color: #F7DC6F;
+  }
+  
+  @media (max-width: 768px) {
+  .hero-title {
+  font-size: 3rem;
+  }
+  
+  .hero-description {
+  font-size: 1.2rem;
+  }
+  
+  .cta-button {
+  font-size: 1.2rem;
+  padding: 0.8rem 1.5rem;
+  }
+  }
+  
+  @media (max-width: 414px) {
+    .hero {
+      height: 65vh;
     }
-    .hero__description {
-      text-align: center;
-      font-size: 1.5rem;
-      width: 70%;
-      margin-left: 15%;
+    .hero-content {
+      margin-top: -70px;
     }
+  .hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+}
+
+.hero-description {
+  font-size: 1.rem;
+  margin-bottom: 50px;
   }
   
-  @media only screen and (max-width: 415px) {
-    .hero__title {
-      font-size: 2rem;
-      width: 370px;
-    }
-    .hero__description {
-      font-size: 1.2rem;
-      width: 350px;
-      margin-left: 10px;
-      margin-bottom: 70px;
-    }
-    .btn {
-      margin-top: -25px;
-      font-size: 1.4rem;
-      padding: 1rem 2rem;
-    }
+  .cta-button {
+  font-size: 1rem;
+  padding: 1.5rem 3.5rem;
+  border-radius: 8px;
+  font-size: 1.4rem;
+  }
   }
 
-  @media only screen and (max-width: 41px) {
-    .hero__title {
-      font-size: 3rem;
+
+  @media (max-width: 375px) {
+    .hero {
+      height: 65vh;
     }
-    .hero__subtitle {
-      font-size: 1.8rem;
+    .hero-content {
+      margin-top: -70px;
     }
-    .hero__btn {
-      font-size: 1.4rem;
-      padding: 1rem 2rem;
+    .hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+  }
+
+  .hero-description {
+    font-size: 1.rem;
+    margin-bottom: 50px;
+    font-weight: 600;
+    }
+    
+    .cta-button {
+    font-size: 1rem;
+    padding: 1.5rem 3.5rem;
+    border-radius: 8px;
+    font-size: 1.4rem;
     }
   }
-  
-  @media only screen and (max-width: 376px) {
-    .hero__title {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
-    .hero__description {
-      font-size: 1.3rem;
-      margin-bottom: 1rem;
-    }
-    .btn {
-      margin-top: 20px;
-      font-size: 1rem;
-      padding: 1.3rem 2.5rem;
-    }
-  }
-  

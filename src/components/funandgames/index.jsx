@@ -1,8 +1,9 @@
 import React from 'react';
+import './games.css'
 
 function FunGames() {
   return (
-    <section>
+    <section className='fun'>
       <h2>Celebrate with us</h2>
       <p>Answer 5 questions about the celebrant or upload a 60secs video saying nice things about the celebrant</p>
       <div>
