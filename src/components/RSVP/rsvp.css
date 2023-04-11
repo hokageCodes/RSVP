@@ -12,6 +12,7 @@
 .left {
   width: 100%;
   margin-bottom: 1rem;
+  margin-top: -8rem;
   text-align: center;
 }
 
@@ -27,6 +28,7 @@
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 4px;
+  margin-top: -9rem;
   padding: 1rem;
 }
 
@@ -107,4 +109,10 @@ select {
 /* Styles for form submit button hover state */
 .btn:hover {
   background-color: #0069d9;
+}
+
+@media (max-width:414px) {
+  .rsvp-count {
+    margin-top: 5px;
+  }
 }

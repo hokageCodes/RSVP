@@ -120,7 +120,7 @@ function RSVPForm() {
       <div className="right">
         <form id="rsvpform" className="rsvp-form" onSubmit={handleSubmit}>
           <div className="form-header">
-            <p>Kindly let us know if you will be attending my party</p>
+            <p>Kindly let me know if you will be attending my party</p>
           </div>
           {successMessage && <div className="success-message">{successMessage}</div>}
           {errorMessage && <div className="error-message">{errorMessage}</div>}

@@ -4,7 +4,7 @@ import "firebase/compat/firestore";
 import "./uploadform.css";
 import _ from "lodash";
 
-const PAGE_SIZE = 6;
+const PAGE_SIZE = 3;
 
 const VideoList = () => {
   const [videos, setVideos] = useState([]);
