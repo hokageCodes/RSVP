@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./quiz.css";
 import { useNavigate } from "react-router";
 
@@ -45,28 +45,30 @@ const QuizApp = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showScore, setShowScore] = useState(false);
   const [quizComplete, setQuizComplete] = useState(false);
-  const [leaderboard, setLeaderboard] = useState([]);
   
-  const navigate = useNavigate()
-  useEffect(() => {
+  const navigate = useNavigate();
+
+  const [leaderboard, setLeaderboard] = useState(() => {
     const leaderboardData = JSON.parse(localStorage.getItem("leaderboard")) || [];
-    setLeaderboard(leaderboardData);
-  }, []);
+    return leaderboardData;
+  });
   
-  useEffect(() => {
-    const hasTakenQuiz = localStorage.getItem("hasTakenQuiz");
-    if (hasTakenQuiz) {
-      // User has taken the quiz before, show the leaderboard
-      const leaderboardData = JSON.parse(localStorage.getItem("leaderboard")) || [];
-      setLeaderboard(leaderboardData);
-      setShowScore(true);
-    } else {
-      // User has not taken the quiz before
-      localStorage.setItem("hasTakenQuiz", true);
-      const leaderboardData = JSON.parse(localStorage.getItem("leaderboard")) || [];
-      setLeaderboard(leaderboardData);
-    }
-  }, []);
+
+  
+  // useEffect(() => {
+  //   const hasTakenQuiz = localStorage.getItem("hasTakenQuiz");
+  //   if (hasTakenQuiz) {
+  //     // User has taken the quiz before, show the leaderboard
+  //     const leaderboardData = JSON.parse(localStorage.getItem("leaderboard")) || [];
+  //     setLeaderboard(leaderboardData);
+  //     setShowScore(true);
+  //   } else {
+  //     // User has not taken the quiz before
+  //     localStorage.setItem("hasTakenQuiz", true);
+  //     const leaderboardData = JSON.parse(localStorage.getItem("leaderboard")) || [];
+  //     setLeaderboard(leaderboardData);
+  //   }
+  // }, []);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -96,8 +98,7 @@ const QuizApp = () => {
       setShowScore(true);
       const newLeaderboard = [...leaderboard, { name, score }];
       newLeaderboard.sort((a, b) => b.score - a.score);
-      localStorage.setItem("leaderboard", JSON.stringify(newLeaderboard));
-      setLeaderboard(newLeaderboard);
+      setLeaderboard(newLeaderboard);      
       }
       };
       
