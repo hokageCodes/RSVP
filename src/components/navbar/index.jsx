@@ -45,7 +45,7 @@ const Navbar = () => {
                         activeClassName="navbar__item--active"
                         onClick={handleToggleNav}
                     >
-                        Games
+                        Videos
                     </NavLink>
                 </li>
                 <li className="navbar__item">

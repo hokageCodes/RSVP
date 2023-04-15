@@ -73,55 +73,61 @@ try {
 }
 }
 return (
-  <div className="UploadForm">
-  <h1 className="UploadForm__title">Upload Your Video</h1>
-  <form onSubmit={handleUpload} noValidate>
-  <div className="UploadForm__field">
-  <label className="UploadForm__label" htmlFor="name">
-  Video Name:
-  </label>
-  <input
-           id="name"
-           type="text"
-           placeholder="Enter video name"
-           value={name}
-           maxLength="50"
-           required
-           onChange={handleNameChange}
-           className="UploadForm__input"
-         />
-  </div>
-  <div className="UploadForm__field">
-  <label className="UploadForm__label" htmlFor="video">
-  Select a video file:
-  </label>
-  <input
-           id="video"
-           type="file"
-           accept="video/*"
-           required
-           onChange={handleFileChange}
-           className="UploadForm__input"
-         />
-  </div>
-  <button
-         type="submit"
-         disabled={!videoFile}
-         className="UploadForm__button"
-       >
-  Upload
-  </button>
-  </form>
-  {uploadProgress > 0 && (
-  <div className="UploadForm__progress">
-  Uploading... {Math.round(uploadProgress)}%
-  </div>
-  )}
-  {uploadError && <div className="UploadForm__error">{uploadError}</div>}
-  {successMessage && (
-  <div className="UploadForm__success">{successMessage}</div>
-  )}
-  </div>
+  <>
+
+      <div className="UploadForm">
+      <h1 className="UploadForm__title">Upload Your Video</h1>
+      <form onSubmit={handleUpload} noValidate>
+      <div className="UploadForm__field">
+      <label className="UploadForm__label" htmlFor="name">
+      Video Name:
+      </label>
+      <input
+              id="name"
+              type="text"
+              placeholder="Enter video name"
+              value={name}
+              maxLength="50"
+              required
+              onChange={handleNameChange}
+              className="UploadForm__input"
+            />
+      </div>
+      <div className="UploadForm__field">
+      <label className="UploadForm__label" htmlFor="video">
+      Select a video file:
+      </label>
+      <input
+              id="video"
+              type="file"
+              accept="video/*"
+              required
+              onChange={handleFileChange}
+              className="UploadForm__input"
+            />
+      </div>
+      <button
+            type="submit"
+            disabled={!videoFile}
+            className="UploadForm__button"
+          >
+      Upload
+      </button>
+      </form>
+      {uploadProgress > 0 && (
+      <div className="UploadForm__progress">
+      Uploading... {Math.round(uploadProgress)}%
+      </div>
+      )}
+      {uploadError && <div className="UploadForm__error">{uploadError}</div>}
+      {successMessage && (
+    <div className="UploadForm__success">{successMessage}</div>
+    )}
+    </div>
+          <div className="check">
+            <p>Or check ALL uploaded Videos <a href="/videos">Here</a></p>
+          </div>
+  </>
 )} 
 
 
